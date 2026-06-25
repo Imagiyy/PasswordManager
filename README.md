@@ -16,10 +16,9 @@ graph TB
     subgraph Client ["Client (Linux / Android)"]
         MP[Master Password]
         MP -->|Argon2id| MK[master_key]
-        MK -->|"HKDF(info=enc_key)"| EK[enc_key]
-        MK -->|"HKDF(info=auth_key)"| AK[auth_key]
+        MK -->|HKDF: info=enc_key| EK[enc_key]
+        MK -->|HKDF: info=auth_key| AK[auth_key]
         EK -->|AES-256-GCM| EB[encrypted_blob]
-        AK -->|Sent once per login| SERVER
     end
 
     subgraph SERVER ["Server (Node.js + PostgreSQL)"]
@@ -29,7 +28,8 @@ graph TB
         KS[kdf_salt stored] --- NONSECRET[Non-secret]
     end
 
-    Client -->|HTTPS| SERVER
+    AK -->|Sent once per login| AK2
+    EB -->|HTTPS Push/Pull| EB2
 ```
 
 ### HKDF Key Separation
