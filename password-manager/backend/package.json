@@ -1,0 +1,36 @@
+{
+  "name": "vaultmanager-backend",
+  "version": "1.0.0",
+  "description": "Zero-knowledge password manager backend — Node.js/Express API with PostgreSQL",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "migrate": "psql -f migrations/001_init.sql"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "argon2": "^0.40.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^7.1.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.12.0",
+    "pino": "^9.3.2",
+    "pino-http": "^10.2.0",
+    "uuid": "^10.0.0"
+  },
+  "keywords": [
+    "password-manager",
+    "zero-knowledge",
+    "encryption",
+    "vault"
+  ],
+  "license": "UNLICENSED",
+  "private": true
+}

@@ -1,0 +1,211 @@
+/* GTK4 Dark Mode Theme for VaultManager */
+
+/* ── Global ──────────────────────────────────────────────────────────── */
+
+window {
+    background-color: #1a1a2e;
+    color: #e0e0e0;
+}
+
+/* ── Header Bar ──────────────────────────────────────────────────────── */
+
+headerbar {
+    background-color: #16213e;
+    border-bottom: 1px solid #0f3460;
+    color: #e0e0e0;
+}
+
+headerbar title {
+    color: #00d4ff;
+    font-weight: bold;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────── */
+
+button {
+    background-color: #0f3460;
+    color: #e0e0e0;
+    border: 1px solid #1a4a7a;
+    border-radius: 6px;
+    padding: 6px 12px;
+    min-height: 28px;
+    transition: all 200ms ease;
+}
+
+button:hover {
+    background-color: #1a4a7a;
+    border-color: #00d4ff;
+}
+
+button:active {
+    background-color: #00d4ff;
+    color: #1a1a2e;
+}
+
+button.destructive-action {
+    background-color: #8b0000;
+    border-color: #cc0000;
+}
+
+button.destructive-action:hover {
+    background-color: #cc0000;
+}
+
+button.suggested-action {
+    background-color: #0077b6;
+    border-color: #00a8e8;
+}
+
+button.suggested-action:hover {
+    background-color: #00a8e8;
+}
+
+/* ── Entry Fields ────────────────────────────────────────────────────── */
+
+entry {
+    background-color: #16213e;
+    color: #e0e0e0;
+    border: 1px solid #0f3460;
+    border-radius: 6px;
+    padding: 8px;
+    min-height: 32px;
+    caret-color: #00d4ff;
+}
+
+entry:focus {
+    border-color: #00d4ff;
+    box-shadow: 0 0 4px rgba(0, 212, 255, 0.3);
+}
+
+/* ── Search Entry ────────────────────────────────────────────────────── */
+
+searchentry {
+    background-color: #16213e;
+    color: #e0e0e0;
+    border: 1px solid #0f3460;
+    border-radius: 8px;
+    padding: 8px;
+    min-height: 36px;
+}
+
+searchentry:focus {
+    border-color: #00d4ff;
+}
+
+/* ── List Views ──────────────────────────────────────────────────────── */
+
+listview {
+    background-color: #1a1a2e;
+}
+
+listview > row {
+    background-color: #16213e;
+    border-bottom: 1px solid #0f3460;
+    padding: 12px 16px;
+    transition: background-color 200ms ease;
+}
+
+listview > row:hover {
+    background-color: #1a4a7a;
+}
+
+listview > row:selected {
+    background-color: #0077b6;
+    color: #ffffff;
+}
+
+/* ── Labels ──────────────────────────────────────────────────────────── */
+
+.vault-item-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #e0e0e0;
+}
+
+.vault-item-username {
+    font-size: 12px;
+    color: #a0a0a0;
+}
+
+.sync-status {
+    font-size: 11px;
+    color: #7a7a7a;
+    font-style: italic;
+}
+
+.sync-status-error {
+    font-size: 11px;
+    color: #ff6b6b;
+    font-style: italic;
+}
+
+.dialog-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #00d4ff;
+    margin-bottom: 16px;
+}
+
+/* ── Dialogs ─────────────────────────────────────────────────────────── */
+
+dialog {
+    background-color: #1a1a2e;
+}
+
+dialog > box {
+    background-color: #1a1a2e;
+    padding: 24px;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────── */
+
+scrollbar slider {
+    background-color: #0f3460;
+    border-radius: 4px;
+    min-width: 8px;
+}
+
+scrollbar slider:hover {
+    background-color: #00d4ff;
+}
+
+/* ── Toolbar ─────────────────────────────────────────────────────────── */
+
+.toolbar {
+    background-color: #16213e;
+    padding: 6px 12px;
+    border-bottom: 1px solid #0f3460;
+}
+
+/* ── Status Bar ──────────────────────────────────────────────────────── */
+
+.statusbar {
+    background-color: #0d1b2a;
+    padding: 4px 12px;
+    border-top: 1px solid #0f3460;
+}
+
+/* ── Conflict Dialog ─────────────────────────────────────────────────── */
+
+.conflict-header {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ff6b6b;
+    margin-bottom: 12px;
+}
+
+.conflict-item {
+    padding: 8px;
+    margin: 4px 0;
+    border-radius: 4px;
+}
+
+.conflict-local {
+    background-color: rgba(0, 119, 182, 0.2);
+    border-left: 3px solid #0077b6;
+}
+
+.conflict-server {
+    background-color: rgba(139, 0, 0, 0.2);
+    border-left: 3px solid #8b0000;
+}

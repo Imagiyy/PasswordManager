@@ -1,0 +1,91 @@
+# ══════════════════════════════════════════════════════════════
+# Zero-Knowledge Password Manager — .gitignore
+# ══════════════════════════════════════════════════════════════
+
+# ── Security-Critical (NEVER commit these) ────────────────────
+*.pem
+*.key
+*.crt
+*.p12
+*.jks
+.env
+.env.local
+.env.production
+.env.staging
+
+# ── Node.js / Backend ────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# ── Python / Linux Client ────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+venv/
+.venv/
+env/
+.env/
+*.whl
+
+# ── Android / Kotlin ─────────────────────────────────────────
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+gradle.properties
+local.properties
+
+# Android Studio
+*.iml
+.idea/
+.DS_Store
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# Room schema exports
+android-client/app/schemas/
+
+# ── IDE / Editor ─────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# ── OS Files ─────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ── Docker ───────────────────────────────────────────────────
+# Don't ignore docker-compose.yml or Dockerfile — they're needed
+# But ignore local overrides
+docker-compose.override.yml
+
+# ── Logs ─────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Testing / Coverage ───────────────────────────────────────
+coverage/
+.nyc_output/
+htmlcov/
+.pytest_cache/
+.coverage
