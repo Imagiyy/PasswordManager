@@ -101,29 +101,35 @@ HKDF outputs with different `info` values are cryptographically independent.
 
 ### Option A: Docker (Recommended)
 
+To run the backend server and PostgreSQL database in Docker containers:
+
+1. **Generate RS256 key pair** (used for signing session tokens):
+   ```bash
+   openssl genrsa -out backend/private.pem 2048
+   openssl rsa -pubout -in backend/private.pem -out backend/public.pem
+   ```
+
+2. **Configure environment variables:**
+   ```bash
+   cp backend/.env.example backend/.env
+   # Edit backend/.env if you want to customize ports/passwords
+   ```
+
+3. **Start the services:**
+   * **Fedora/Linux (SELinux):** If you are running on Fedora or CentOS with SELinux active, Docker requires volume mounts to have the `,z` flag. This is already configured in `docker-compose.yml` for the database schema migrations.
+   * Run the compose stack:
+     ```bash
+     docker-compose up -d
+     ```
+     *(Or `sudo docker-compose up -d` if your user is not yet added to the `docker` group).*
+
+4. **Verify backend is running:**
+   Visit `http://localhost:3000` (which will return a standard Helmet-protected 404 response indicating it is up and listening).
+
+### Option B: Manual Setup (No Docker)
+
 ```bash
-cd password-manager
-
-# Generate RS256 key pair
-openssl genrsa -out backend/private.pem 2048
-openssl rsa -pubout -in backend/private.pem -out backend/public.pem
-
-# Copy and configure environment
-cp backend/.env.example backend/.env
-# Edit backend/.env with your settings
-
-# Start services
-docker-compose up -d
-
-# Run migration (first time only)
-docker-compose exec postgres psql -U vaultuser -d vaultdb \
-  -f /docker-entrypoint-initdb.d/001_init.sql
-```
-
-### Option B: Manual Setup
-
-```bash
-cd password-manager/backend
+cd backend
 
 # Install dependencies
 npm install
@@ -150,31 +156,51 @@ node server.js
 
 ## 4. Linux Client Setup
 
-### System Dependencies (Ubuntu/Debian)
+The Linux client is a native desktop application built with Python and GTK4.
+
+### System Dependencies
+
+First, install the GTK4 system dependencies for your distribution:
+
+* **Ubuntu / Debian:**
+  ```bash
+  sudo apt update
+  sudo apt install python3-gi python3-gi-cairo gir1.2-gtk-4.0 libgtk-4-dev
+  ```
+* **Fedora / RHEL:**
+  ```bash
+  sudo dnf install python3-gobject gtk4-devel
+  ```
+
+### Python Environment & Installation
+
+Set up a local Python virtual environment and install the requirements:
 
 ```bash
-sudo apt install python3-gi python3-gi-cairo gir1.2-gtk-4.0 libgtk-4-dev
-```
-
-### Fedora
-
-```bash
-sudo dnf install python3-gobject gtk4-devel
-```
-
-### Python Environment
-
-```bash
-cd password-manager/linux-client
-
+cd linux-client
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+```
 
-# Set the server URL (must be HTTPS in production)
-export VAULT_SERVER_URL="https://your-server.example.com"
+### Launching & Installing the Application
 
-# Run the application
+You can launch the application in two ways:
+
+#### Option 1: Run and Install as a Desktop Application (Recommended)
+We have provided helper scripts in the root directory to make launching the app convenient:
+
+1. **Run-Only Script:** Run `./run-client.sh` from the project root. It handles virtual environment activation, environment variable setting, and app execution automatically.
+2. **Desktop Launcher (Icon) Installation:** Run the desktop installer script:
+   ```bash
+   ./install-desktop.sh
+   ```
+   This creates a standard desktop entry (`~/.local/share/applications/vaultmanager.desktop`) with a secure lock icon. You can now press your keyboard's **Super/Windows** key, search for **VaultManager**, and click on the app icon to open it!
+
+#### Option 2: Command-Line Launch
+Run directly from the terminal (inside your active python environment):
+```bash
+export VAULT_SERVER_URL="http://localhost:3000"
 python3 main.py
 ```
 
@@ -189,30 +215,50 @@ The app creates `~/.config/vaultmanager/` on first launch (chmod 700) with:
 
 ## 5. Android Client Setup
 
+The Android client is built using Kotlin and Jetpack Compose. You can build the installation file (`.apk`) and load it onto your device.
+
 ### Prerequisites
 
 - Android Studio Hedgehog (2023.1.1) or later
 - Android SDK 34+
-- NDK (for argon2kt native compilation)
+- NDK (for native argon2kt compilation)
 
-### Build & Install
+### Building the Installation Package (APK)
 
+To compile the application:
+
+1. Navigate to the android client directory:
+   ```bash
+   cd android-client
+   ```
+2. Build the debug APK:
+   ```bash
+   ./gradlew assembleDebug
+   ```
+   This will generate a ready-to-install package at:
+   `android-client/app/build/outputs/apk/debug/app-debug.apk`
+
+### Installing on your Device
+
+To get the app working on your phone with its own clickable app icon:
+
+#### Method A: Via USB Debugging (Developer Mode)
+If you have your phone connected to your PC with USB debugging enabled, run:
 ```bash
-cd password-manager/android-client
-
-# Build debug APK
-./gradlew assembleDebug
-
-# Install on connected device
 adb install app/build/outputs/apk/debug/app-debug.apk
 ```
 
+#### Method B: Manual File Transfer (Standard)
+1. Transfer the compiled `app-debug.apk` to your phone (via USB transfer, Google Drive, email, or a local network share).
+2. Open a file manager app on your Android device and tap `app-debug.apk`.
+3. Allow installing apps from unknown/external sources if prompted by your system.
+4. Tap **Install**. Once finished, the VaultManager app will be available in your home screen and app drawer!
+
 ### Configuration
 
-1. **Set server URL**: Edit `SyncApiClient.kt` — update `BASE_URL` constant
-2. **Enable Autofill**: Settings → System → Languages & Input → Autofill Service
-   → Select "VaultManager"
-3. **Biometric Setup**: Ensure fingerprint/face is enrolled in device settings
+1. **Set server URL**: Update the `BASE_URL` constant inside `SyncApiClient.kt` to point to your backend API.
+2. **Enable Autofill**: Go to Settings → System → Languages & Input → Autofill Service, and select "VaultManager".
+3. **Biometric Setup**: Ensure biometric unlock is enabled in your device settings.
 
 ### Security Features
 

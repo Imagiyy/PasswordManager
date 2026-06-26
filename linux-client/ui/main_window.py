@@ -20,7 +20,7 @@ from datetime import datetime, timezone
 
 import gi
 gi.require_version("Gtk", "4.0")
-from gi.repository import Gtk, GLib, Gdk, Gio  # noqa: E402
+from gi.repository import Gtk, GLib, Gdk, Gio, GObject  # noqa: E402
 
 from crypto.vault_crypto import encrypt, decrypt, zero_bytes
 from storage.local_db import (
@@ -723,7 +723,7 @@ class MainWindow(Gtk.ApplicationWindow):
             thread.start()
 
 
-class VaultListItem(GLib.Object):
+class VaultListItem(GObject.Object):
     """
     GObject wrapper for vault list items (used by Gio.ListStore).
     """

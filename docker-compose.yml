@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-vaultpass}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./backend/migrations/001_init.sql:/docker-entrypoint-initdb.d/001_init.sql:ro
+      - ./backend/migrations/001_init.sql:/docker-entrypoint-initdb.d/001_init.sql:ro,z
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 5s

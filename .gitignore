@@ -9,9 +9,10 @@
 *.p12
 *.jks
 .env
-.env.local
-.env.production
-.env.staging
+.env.*
+!.env.example
+*.db
+*.sqlite
 
 # ── Node.js / Backend ────────────────────────────────────────
 node_modules/
