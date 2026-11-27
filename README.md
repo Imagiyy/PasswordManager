@@ -122,3 +122,4 @@ PasswordManager/
 Provided as-is for personal and educational use (`backend/package.json` marked `"private": true`).
 
 - **Issues & Security Notes:** [GitHub Issues](https://github.com/Imagiyy/PasswordManager/issues)
+- **Direct Contact:** [zuwiabrar@gmail.com](mailto:zuwiabrar@gmail.com)
