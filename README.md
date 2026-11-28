@@ -30,8 +30,8 @@ graph LR
 Prerequisites: **Docker & Docker Compose** (or Node.js 20+ & PostgreSQL 16+).
 
 ```bash
-git clone https://github.com/Imagiyy/PasswordManager.git
-cd PasswordManager
+git clone https://github.com/Imagiyy/ZeroKnowledge-E2EE-Password-Manager.git
+cd ZeroKnowledge-E2EE-Password-Manager
 
 # Generate RS256 session token keys & configure environment
 openssl genrsa -out backend/private.pem 2048
@@ -105,7 +105,7 @@ Server refuses to start if any required variable is missing:
 ## 📁 Repository Layout
 
 ```text
-PasswordManager/
+ZeroKnowledge-E2EE-Password-Manager/
 ├── backend/              # Node.js / Express API, PostgreSQL migrations & Dockerfile
 ├── linux-client/         # Native Python + GTK4 client, local crypto & SQLite sync
 ├── android-client/       # Kotlin + Jetpack Compose app, Keystore & AutofillService
@@ -121,5 +121,5 @@ PasswordManager/
 
 Provided as-is for personal and educational use (`backend/package.json` marked `"private": true`).
 
-- **Issues & Security Notes:** [GitHub Issues](https://github.com/Imagiyy/PasswordManager/issues)
+- **Issues & Security Notes:** [GitHub Issues](https://github.com/Imagiyy/ZeroKnowledge-E2EE-Password-Manager/issues)
 - **Direct Contact:** [zuwiabrar@gmail.com](mailto:zuwiabrar@gmail.com)
